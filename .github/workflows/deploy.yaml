@@ -1,0 +1,30 @@
+name: Deploy to GitHub Pages
+# Tên của workflow, mô tả công việc của nó.
+# Bạn có thể đặt tên tùy ý để mô tả mục đích của workflow.
+
+on:
+  push:
+    branches:
+      - main
+# Xác định sự kiện kích hoạt workflow.
+# - Khi có sự kiện push lên repository,
+# - Và chỉ kích hoạt khi push lên nhánh 'main'.
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    # Định nghĩa công việc có tên là 'deploy', chạy trên môi trường Ubuntu mới nhất.
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+      # Bước 1: Sao chép mã nguồn từ repository vào môi trường chạy workflow.
+
+    - name: Deploy to GitHub Pages
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./
+      # Bước 2: Sử dụng action để triển khai lên GitHub Pages.
+      # - Sử dụng token GitHub để thực hiện các thao tác trên repository.
+      # - Triển khai các tệp trong thư mục gốc của repository lên GitHub Pages.
